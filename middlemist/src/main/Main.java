@@ -1,9 +1,13 @@
 package main;
 
+import java.io.File;
+
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 public class Main {
+
+	public static final String userDir = System.getProperty("user.home");
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -24,5 +28,5 @@ public class Main {
 		frame.setVisible(true);
 
 		gamePanel.startGameThread();
-	}	
+	}
 }
