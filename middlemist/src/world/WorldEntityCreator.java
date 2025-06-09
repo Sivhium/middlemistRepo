@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import entity.Entity;
+import entity.GameObject;
 import main.GamePanel;
 
 public class WorldEntityCreator {
@@ -31,6 +32,7 @@ public class WorldEntityCreator {
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		String name;
 		Integer entX, entY, entID;
 		String text = reader.toString();
 		String[] positions = text.split(" ");
@@ -39,27 +41,44 @@ public class WorldEntityCreator {
 			entX = Integer.parseInt(vals[0]);
 			entY = Integer.parseInt(vals[1]);
 			entID = Integer.parseInt(vals[2]);
+			name = vals[3];
 			if (entX != null && entY != null && entID != null) {
-				createEnt(entX, entY, entID);
+				createEnt(entX, entY, entID, name);
 			}
 			else {
 				entX = 0;
 				entY = 0;
 				entID = NULL_ID;
-				createEnt(entX, entY, entID);
+				createEnt(entX, entY, entID, name);
 			}
 		}
 	}
 	
-	private static void createEnt(int x, int y, int id) {
+	private static void createEnt(int x, int y, int id, String name) {
 		switch (id) {
 		case -1:
-			Entity nullEnt = new Entity("null", x, y);
+			Entity nullEnt = new Entity(name, x, y);
 			gp.entLoader.unloadEntity(nullEnt);
 			break;
 		case 0:
-			Entity voidEnt = new Entity("void", x, y);
+			Entity voidEnt = new Entity(name, x, y);
 			gp.entLoader.loadEntity(voidEnt);
+			break;
+		case 1:
+			GameObject solidGameObject = new GameObject(name, x, y, true);
+			solidGameObject.innitSheet(name + ".png");
+			gp.entLoader.loadEntity(solidGameObject);
+			break;
+		case 2:
+			GameObject nonSolidGameObject = new GameObject(name, x, y, false);
+			nonSolidGameObject.innitSheet(name + ".png");
+			gp.entLoader.loadEntity(nonSolidGameObject);
+			break;
+		case 3:
+			GameObject invisibleGameObject = new GameObject(name, x, y, true);
+			gp.entLoader.loadEntity(invisibleGameObject);
+			gp.setInvisibleEntity(invisibleGameObject);
 		}
+			
 	}
 }

@@ -9,10 +9,12 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import entity.Entity;
 import entity.EntityCollider;
 import entity.EntityLoader;
+import entity.GameObject;
 import entity.Player;
 import entity.SpriteHandler;
 import world.World;
@@ -21,6 +23,8 @@ import world.WorldEntityCreator;
 public class GamePanel extends JPanel implements Runnable {
 
 	//Variables
+	public static Player player;
+	public static World world;
 
 	private static final long serialVersionUID = 1L;
 	private final int ogTileSize = 64;
@@ -38,9 +42,8 @@ public class GamePanel extends JPanel implements Runnable {
 	public KeyHandler keyH;
 	public SpriteHandler spriteH;
 	public ArrayList<Entity> entities;
-	private Player player;
+	public ArrayList<Entity> dontDraw;
 	public EntityLoader entLoader;
-	public World world;
 
 	private volatile boolean running = true;
     public volatile boolean paused = false;
@@ -49,7 +52,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenW, screenH));
-		this.setBackground(Color.white);
+		this.setBackground(Color.black);
 		this.setDoubleBuffered(true);
 		this.setFocusable(true);
 		this.requestFocusInWindow();
@@ -57,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable {
 		keyH = new KeyHandler();
 		this.addKeyListener(keyH);
 		entities = new ArrayList<>();
+		dontDraw = new ArrayList<>();
 		entLoader = new EntityLoader();
 		world = new World(this);
 		innitWorld(1);
@@ -84,18 +88,22 @@ public class GamePanel extends JPanel implements Runnable {
 		Entity voidEnt = new Entity("Void", x, y);
 		entLoader.loadEntity(voidEnt);
 	}
+	
+	public void setInvisibleEntity(Entity ent) {
+		dontDraw.add(ent);
+	}
 
 	public void pause() {
 		paused = true;
 		System.out.println("Game paused. Press Escape to resume.");
-		main.PausePanel.toggleVisibility();
+		PausePanel.toggleVisibility();
 	}
 	public void resume() {
 		System.out.println("Game resumed. Press Escape to pause.");
 		synchronized (gameThread) {
 			paused = false;
 			gameThread.notifyAll();
-			main.PausePanel.toggleVisibility();
+			PausePanel.toggleVisibility();
 		}
 	}
 	public void stop() {
@@ -136,7 +144,9 @@ public class GamePanel extends JPanel implements Runnable {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(world.mapImage, world.x, world.y, world.worldW, world.worldH, null);
 		for (Entity ent : entities) {
-			g2.drawImage(spriteH.getSprite(ent), ent.x, ent.y, ent.width, ent.height, null);
+			if (!(dontDraw.contains(ent))) {
+				g2.drawImage(spriteH.getSprite(ent), ent.x, ent.y, ent.width, ent.height, null);
+			}
 		}
 		g2.drawImage(spriteH.getSprite(player), player.x, player.y, player.width, player.height, null);
 		g2.dispose();
@@ -179,6 +189,16 @@ public class GamePanel extends JPanel implements Runnable {
             }
 		}
 
+	}
+	
+	public ArrayList<Entity> sortEnts(Class <? extends Entity> type) {
+		ArrayList<Entity> sortedEnts = new ArrayList<>();
+		for (Entity ent : entities) {
+			if (type.isInstance(ent)) {
+				sortedEnts.add(ent);
+			}
+		}
+		return sortedEnts;
 	}
 
 }
