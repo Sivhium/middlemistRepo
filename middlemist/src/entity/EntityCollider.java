@@ -1,8 +1,6 @@
 package entity;
 
 import java.util.ArrayList;
-
-import main.GamePanel;
 import world.World;
 
 public class EntityCollider {
@@ -41,7 +39,6 @@ public class EntityCollider {
 		} else {
 			return false;
 		}
-		
 	}
 	
 	public void collisionUpdate() {

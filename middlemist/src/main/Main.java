@@ -1,9 +1,8 @@
 package main;
 
-import java.io.File;
-
-import javax.swing.JFrame;
+import javax.swing.*;
 import javax.swing.WindowConstants;
+import item.InventoryMenu;
 
 import item.InventoryMenu;
 
@@ -20,15 +19,14 @@ public class Main {
 		frame.setContentPane(gamePanel);
 
 		frame.pack();
-		
 		PausePanel pausePanel = new PausePanel();
 		PausePanel.setPause(pausePanel);
-		InventoryMenu iventoryMenu = new InventoryMenu();
-		InventoryMenu.setInv(iventoryMenu);
+		InventoryMenu inventoryMenu = new InventoryMenu();
+		InventoryMenu.setInv(inventoryMenu);
 		frame.add(pausePanel);
-		frame.add(iventoryMenu);
+		frame.add(inventoryMenu);
 		pausePanel.setVisible(false);
-		iventoryMenu.setVisible(false);
+		inventoryMenu.setVisible(false);
 
 		frame.setTitle("middlemist");
 		frame.setVisible(true);
