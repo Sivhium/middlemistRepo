@@ -31,7 +31,7 @@ public class EntityCollider {
     }
 	
 	public boolean intersectsWith(EntityCollider other) {
-		if (other != this && canCollide || other.canCollide) {
+		if (other != this && canCollide) {
 			return x < other.x + other.width &&
 			       x + width > other.x &&
 			       y < other.y + other.height &&

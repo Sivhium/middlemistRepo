@@ -34,9 +34,9 @@ public class KeyHandler implements KeyListener{
 		if (code == KeyEvent.VK_E) {
 			invKey = !invKey;
 		}
-        if (code == KeyEvent.VK_ESCAPE) {
-            escKey = !escKey;
-        }
+    if (code == KeyEvent.VK_ESCAPE) {
+       escKey = !escKey;
+    }
 	}
 
 	@Override

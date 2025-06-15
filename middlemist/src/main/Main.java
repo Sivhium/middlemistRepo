@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.WindowConstants;
 import item.InventoryMenu;
 
+import item.InventoryMenu;
+
 public class Main {
 
 	public static final String userDir = System.getProperty("user.home");
