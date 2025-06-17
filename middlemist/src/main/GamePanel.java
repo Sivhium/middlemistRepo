@@ -96,6 +96,10 @@ public class GamePanel extends JPanel implements Runnable {
 
 	//Methods
 	
+	public static void setGamePanel(GamePanel gp) {
+		gamePanel = gp;
+	}
+	
 	private void innitWorld(int i) {
 		try {
 			world.mapImage = ImageIO.read(getClass().getResourceAsStream("/res/maps/map" + i + ".png"));
@@ -167,6 +171,7 @@ public class GamePanel extends JPanel implements Runnable {
 			if (ent instanceof ItemEntity) {
 				((ItemEntity) ent).itemUpdate();
 			}
+		for (Entity ent : entities) {
 			ent.entCollide.collisionUpdate();
 			if (ent instanceof ItemEntity) {
 				ItemEntity.itemUpdate((ItemEntity) ent);

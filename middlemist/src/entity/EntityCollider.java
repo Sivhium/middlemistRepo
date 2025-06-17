@@ -38,6 +38,14 @@ public class EntityCollider {
 			       y + height > other.y;
 		} else {
 			return false;
+	public boolean intersectsWith(EntityCollider other) {
+		if (other != this && other.canCollide || canCollide) {
+			return x < other.x + other.width &&
+			       x + width > other.x &&
+			       y < other.y + other.height &&
+			       y + height > other.y;
+		} else {
+			return false;
 		}
 	}
 	
