@@ -330,7 +330,6 @@ public class InventoryMenu extends JPanel {
     }
 }
 
-=======
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.AdjustmentListener;
