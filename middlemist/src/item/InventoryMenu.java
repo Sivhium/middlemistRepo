@@ -332,8 +332,18 @@ public class InventoryMenu extends JPanel {
 
 =======
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.AdjustmentListener;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 import entity.Player;
 import main.GamePanel;
@@ -342,28 +352,54 @@ public class InventoryMenu extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	Player player;
-	static InventoryMenu im;
-	final int inW = 128, inH = 128;
+	public static InventoryMenu im;
+	public int inW = 612, inH = 128;
+	public static boolean interactable;
+	JLayeredPane scrollLayer;
 	
 	public InventoryMenu() {
+		scrollLayer = new JLayeredPane();
+		scrollLayer.setLayout(new FlowLayout());
+		scrollLayer.setPreferredSize(new Dimension(inW - 64, inH));
+		scrollLayer.setDoubleBuffered(true);
+		scrollLayer.setBackground(Color.gray);
+		this.add(scrollLayer);
+		JScrollBar scrollBar = new JScrollBar(JScrollBar.VERTICAL);
+		scrollBar.setAlignmentX(RIGHT_ALIGNMENT);
+		scrollBar.addAdjustmentListener(e -> {
+			if (scrollBar.getValue() == scrollBar.getMaximum() - scrollBar.getVisibleAmount()) {
+				scrollBar.setValue(scrollBar.getMaximum() - scrollBar.getVisibleAmount());
+			}
+			scrollLayer.setLocation(scrollLayer.getX(), -scrollBar.getValue());
+		});
+		this.add(scrollBar);
 		player = GamePanel.player;
 		this.setPreferredSize(new Dimension(inW, inH));
-		this.setBackground(Color.red);
+		this.setDoubleBuffered(true);
+		this.setBackground(Color.gray);
+		this.setLayout(new FlowLayout());
 	}
 	
 	public void updateInventory() {
+		scrollLayer.removeAll();
 		for (Item item : player.inventory) {
-			System.out.println(item);
+			ImageIcon icon = new ImageIcon(item.icon);
+			JLabel itemLabel = new JLabel(item.name, icon, SwingConstants.LEFT);
+            scrollLayer.add(itemLabel);
 		}
+		scrollLayer.revalidate();
+        scrollLayer.repaint();
 	}
 	
 	public static void setInv(InventoryMenu im) {
 		InventoryMenu.im = im;
+		interactable = false;
 	}
 	
 	public static void toggleVisibility() {
-		System.out.println("Toggling inventory visibility");
+		im.updateInventory();
 		im.setVisible(!im.isVisible());
+		interactable = !interactable;
 	}
 
 }

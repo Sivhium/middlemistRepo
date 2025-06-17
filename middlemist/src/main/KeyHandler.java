@@ -10,6 +10,10 @@ public class KeyHandler implements KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		int code = e.getKeyChar();
+		if (code == KeyEvent.VK_ESCAPE) {
+			escKey = !escKey;
+		}
 	}
 
 	@Override
@@ -48,6 +52,7 @@ public class KeyHandler implements KeyListener{
         		pauseF = !pauseF;
 				intKey = !intKey;
 			}
+			invKey = !invKey;
 		}
 	}
 

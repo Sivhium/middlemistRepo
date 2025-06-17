@@ -22,6 +22,10 @@ import entity.Npc;
 import entity.Player;
 import entity.SpriteHandler;
 import interaction.DialogPanel;
+import entity.GameObject;
+import entity.ItemEntity;
+import entity.Player;
+import entity.SpriteHandler;
 import item.Item;
 import world.World;
 import world.WorldEntityCreator;
@@ -84,6 +88,10 @@ public class GamePanel extends JPanel implements Runnable {
 		Npc testNpc = new Npc("TestNpc", 300, 100, true);
 		testNpc.newDialog("Hello, I am a test NPC! Press space to continue, or click the dialog panel!NEXT_DIALOGLmao", 100);
 		entLoader.loadEntity(testNpc);
+		Item item = new Item("test item");
+		item.setIcon("/res/sprites/exc.png");
+		ItemEntity itemEnt = new ItemEntity("item", 100, 100, item);
+		entLoader.loadEntity(itemEnt);
 	}
 
 	//Methods
@@ -159,6 +167,10 @@ public class GamePanel extends JPanel implements Runnable {
 			if (ent instanceof ItemEntity) {
 				((ItemEntity) ent).itemUpdate();
 			}
+			ent.entCollide.collisionUpdate();
+			if (ent instanceof ItemEntity) {
+				ItemEntity.itemUpdate((ItemEntity) ent);
+			}
 		}
 		player.playUpdate();
 		world.worldUpdate();
@@ -175,7 +187,6 @@ public class GamePanel extends JPanel implements Runnable {
 			}
 		}
 		g2.drawImage(spriteH.getSprite(player), player.x, player.y, player.width, player.height, null);
-		g2.dispose();
 	}
 
 	@Override

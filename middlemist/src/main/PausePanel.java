@@ -15,6 +15,7 @@ public class PausePanel extends JPanel{
 	
 	public PausePanel() {
 		this.setPreferredSize(new Dimension(pauseW, pauseH));
+		this.setDoubleBuffered(true);
 		this.setBackground(Color.white);
 		this.setFocusable(false);
 		pauseText = new JLabel();

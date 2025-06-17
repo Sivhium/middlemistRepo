@@ -6,6 +6,8 @@ import javax.imageio.ImageIO;
 import main.GamePanel;
 
 
+import javax.imageio.ImageIO;
+
 public class Item {
 	
 	public static int itemCount = 0;
@@ -31,5 +33,17 @@ public class Item {
 	
 	public void consume() {
 		GamePanel.player.health += healthBoost;
+	
+	public Item(String name) {
+		this.name = name;
+		this.id = itemCount++;
+	}
+	
+	public void setIcon(String iconPath) {
+		try {
+			this.icon = ImageIO.read(getClass().getResourceAsStream(iconPath));
+		} catch (java.io.IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

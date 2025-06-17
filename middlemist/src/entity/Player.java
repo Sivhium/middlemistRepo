@@ -69,12 +69,10 @@ public class Player extends Entity{
 	    	return true;
 	    }
 	}
+	
+	int count = 0;
 
 	public void playUpdate() {
-		if (keyH.invKey) {
-			InventoryMenu.toggleVisibility();
-			keyH.invKey = false; // Reset the inventory key to prevent repeated toggling
-		}
 		if (walking) {
 			idleTimer = 0;
 			walkTimer++;
@@ -105,6 +103,14 @@ public class Player extends Entity{
 			}
 			keyH.intKey = false; // Prevents toggling interaction multiple times
 		}
+		else {
+			if (keyH.invKey) {
+				InventoryMenu.toggleVisibility();
+				keyH.invKey = false;
+			}
+			if (gp.paused) {
+				gp.resume();
+			}
 			switch (keyH.lastKeyPressed) {
 				case "w":
 					if (keyH.wKey) {
