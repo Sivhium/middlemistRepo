@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import entity.Entity;
 import entity.EntityLoader;
@@ -23,6 +24,7 @@ import entity.SpriteHandler;
 import interaction.DialogPanel;
 import item.Item;
 import world.World;
+import world.WorldEntityCreator;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -173,6 +175,7 @@ public class GamePanel extends JPanel implements Runnable {
 			}
 		}
 		g2.drawImage(spriteH.getSprite(player), player.x, player.y, player.width, player.height, null);
+		g2.dispose();
 	}
 
 	@Override
@@ -237,5 +240,4 @@ public class GamePanel extends JPanel implements Runnable {
 		}
     	setCursor(defaultCursor);
     }
-
 }

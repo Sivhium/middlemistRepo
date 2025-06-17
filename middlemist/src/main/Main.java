@@ -6,6 +6,8 @@ import javax.swing.WindowConstants;
 import interaction.DialogPanel;
 import item.InventoryMenu;
 
+import item.InventoryMenu;
+
 public class Main {
 
 	public static void main(String[] args) {

@@ -2,10 +2,9 @@ package item;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
 import main.GamePanel;
+
 
 public class Item {
 	
@@ -33,5 +32,4 @@ public class Item {
 	public void consume() {
 		GamePanel.player.health += healthBoost;
 	}
-
 }

@@ -71,6 +71,10 @@ public class Player extends Entity{
 	}
 
 	public void playUpdate() {
+		if (keyH.invKey) {
+			InventoryMenu.toggleVisibility();
+			keyH.invKey = false; // Reset the inventory key to prevent repeated toggling
+		}
 		if (walking) {
 			idleTimer = 0;
 			walkTimer++;
