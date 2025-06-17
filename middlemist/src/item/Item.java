@@ -8,6 +8,8 @@ import main.GamePanel;
 
 import javax.imageio.ImageIO;
 
+import javax.imageio.ImageIO;
+
 public class Item {
 	
 	public static int itemCount = 0;

@@ -47,6 +47,10 @@ public class Main {
 		frame.add(inventoryMenu);
 		pausePanel.setVisible(false);
 		inventoryMenu.setVisible(false);
+		frame.add(pausePanel);
+		frame.add(inventoryMenu);
+		pausePanel.setVisible(false);
+		inventoryMenu.setVisible(false);
 		
 		frame.setLocationRelativeTo(null);
 		frame.setTitle("middlemist");
